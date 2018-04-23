@@ -3,9 +3,7 @@ package com.aironman.demo.domain.model;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -13,19 +11,28 @@ import javax.validation.constraints.Size;
 public class User {
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false, nullable = false)
+    private Long id;
+
+    //@Id
     @NotEmpty
     @Size(min = 5, max = 15)
+    @Column(name = "username", updatable = true, nullable = false)
     private String username;
 
     @NotEmpty
     @Size(min = 5)
+    @Column(name = "password", updatable = true, nullable = false)
     private String password;
 
     @NotEmpty
+    @Column(name = "name", updatable = true, nullable = false)
     private String name;
 
     @Email
     @NotEmpty
+    @Column(name = "email", updatable = true, nullable = true)
     private String email;
 
     public User() {
@@ -70,10 +77,19 @@ public class User {
         this.email = email;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "User{" +
-                "username='" + username + '\'' +
+                "id=" + id +
+                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
