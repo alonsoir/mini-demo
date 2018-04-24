@@ -5,6 +5,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name="user")
@@ -12,10 +15,9 @@ public class User {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false, nullable = false)
-    private Long id;
+    @Column(name = "idUser", updatable = false, nullable = false)
+    private Long idUser;
 
-    //@Id
     @NotEmpty
     @Size(min = 5, max = 15)
     @Column(name = "username", updatable = true, nullable = false)
@@ -35,7 +37,11 @@ public class User {
     @Column(name = "email", updatable = true, nullable = true)
     private String email;
 
+    @ManyToMany
+    private List<Group> groupList;
+
     public User() {
+
     }
 
     public User(String username, String password, String name, String email) {
@@ -43,6 +49,7 @@ public class User {
         this.password = password;
         this.name = name;
         this.email = email;
+
     }
 
     public String getUsername() {
@@ -77,22 +84,35 @@ public class User {
         this.email = email;
     }
 
-    public Long getId() {
-        return id;
+    public Long getIdUser() {
+        return idUser;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setidUser(Long idUser) {
+        this.idUser= idUser;
+    }
+
+    public void setIdUser(Long idUser) {
+        this.idUser = idUser;
+    }
+
+    public List<Group> getGroupList() {
+        return groupList;
+    }
+
+    public void setGroupList(List<Group> groupList) {
+        this.groupList = groupList;
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
+                "idUser=" + idUser +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
+                ", groupList=" + groupList +
                 '}';
     }
 }

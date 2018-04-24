@@ -8,7 +8,7 @@ public interface UserService {
 
     User create(User user);
 
-    public List<User> listAll();
+    List<User> listAll();
 
-    public void initialize();
+    void initialize();
 }
